@@ -1,0 +1,118 @@
+::ng-deep .mat-form-field-underline {
+  background-color: red !important;
+}
+::ng-deep .mat-form-field-label {
+  color: #fff !important;
+}
+
+.login-container {
+  padding: 40px 15px;
+  height: 100vh;
+  background: url("../../assets/login-bg-blur.jpg") no-repeat center center /
+    cover;
+  position: relative;
+
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .b-gastro-logo {
+      width: 165px;
+      height: 100px;
+    }
+  }
+
+  mat-form-field {
+    margin-top: 5px;
+    width: 100%;
+    color: #fff;
+    border-radius: 5px 5px 0px 0px;
+
+    input {
+      &:focus {
+        ion-icon {
+          color: #fa4616;
+        }
+      }
+    }
+
+    span {
+      margin-top: -4px;
+      color: #fff;
+      font-size: 20px;
+      margin: -4px 10px 0px;
+    }
+  }
+
+  .hl-text {
+    p {
+      color: rgba(224, 224, 224, 0.6);
+      font-size: 14px;
+      line-height: 18px;
+      text-align: center;
+
+      &:before,
+      &:after {
+        background-color: rgba(224, 224, 224, 0.6);
+        content: "";
+        display: inline-block;
+        height: 1px;
+        position: relative;
+        vertical-align: middle;
+        width: 40%;
+      }
+
+      &::before {
+        right: 2em;
+        margin-left: -50%;
+      }
+
+      &::after {
+        left: 2em;
+        margin-right: -50%;
+      }
+    }
+  }
+
+  .login-btn {
+    height: 50px;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 12px;
+    margin-top: 35px;
+    margin-bottom: 30px;
+    width: 100%;
+    background: #fa4616;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .register-btn {
+    width: 100%;
+    background: none;
+    box-shadow: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    margin-top: 30px;
+    text-transform: none;
+
+    span {
+      text-transform: none;
+      color: #fa4616;
+    }
+  }
+
+  .forgotten-password {
+    margin: 15px 0;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #dedede;
+    text-align: right;
+  }
+}

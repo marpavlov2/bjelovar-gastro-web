@@ -1,0 +1,76 @@
+<div class="login-container">
+  <div class="image-container">
+    <img
+      class="b-gastro-logo"
+      src="../../assets/b-gastro-logo.svg"
+    />
+  </div>
+  <form [formGroup]="loginForm" autocomplete="off">
+
+    <mat-form-field class="full-width custom-form-field">
+      <mat-label>E-pošta</mat-label>
+      <input
+        autocomplete="off"
+        matInput
+        placeholder="Email"
+        name="email"
+        formControlName="email"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <div
+      class="error-message"
+      *ngIf="!email.valid && (email.dirty || email.touched)"
+    >
+      <mat-error *ngIf="email.errors.required">Email je obavezno polje.</mat-error>
+      <mat-error *ngIf="email.errors.email">Unesite email u ispravnom formatu.</mat-error>
+    </div>
+
+    <mat-form-field class="full-width custom-form-field">
+      <mat-label>Lozinka</mat-label>
+      <!-- type="password" -->
+      <input
+        matInput
+        placeholder="Password"
+        name="password"
+        formControlName="password"
+        autocomplete="new-password"
+      />
+    </mat-form-field>
+
+    <div
+      class="error-message"
+      *ngIf="!password.valid && (password.dirty || password.touched)"
+    >
+      <mat-error *ngIf="password.errors.required">Lozinka je obavezno polje.</mat-error>
+      <mat-error *ngIf="password.errors.minlength">
+        Lozinka mora sadržavati minimalno 6 znakova.
+      </mat-error>
+    </div>
+
+    <p class="forgotten-password">Zaboravljena lozinka?</p>
+
+    <button
+      class="login-btn"
+      expand="block"
+      (click)="login()"
+      [disabled]="!loginForm.valid"
+    >
+      Prijava
+    </button>
+  </form>
+
+  <div class="hl-text ion-text-center ion-padding-vertical ion-margin-top">
+    <p><span>ili</span></p>
+  </div>
+
+    <button
+      class="register-btn"
+      shape="round"
+      expand="full"
+      (click)="gotoRegister()"
+    >
+      Nemaš račun?&nbsp; <span> Registriraj se </span>
+    </button>
+</div>

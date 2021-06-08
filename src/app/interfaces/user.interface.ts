@@ -1,0 +1,21 @@
+export interface User {
+    id: number,
+    email: string,
+    password: string,
+    role:number,
+    firstName: string,
+    lastName: string,
+    address: string,
+    phone: string,
+    checkedTerms: true,
+    image: string,
+    ageGate: true,
+    city: string,
+    updatedAt: string,
+    createdAt: string,
+    customerPlayerId: string,
+    objectId?: number,
+    carDetails?: string,
+    carPlate?: string,
+    highscore: number;
+}
