@@ -1,4 +1,6 @@
 @import "~@angular/material/theming";
+// regular style toast
+@import '~ngx-toastr/toastr';
 @include mat-core();
 
 $my-app-primary: mat-palette($mat-green, A700);
@@ -123,6 +125,14 @@ body {
   }
 }
 
+.mat-tab-label {
+      min-width: 50%!important;
+}
+
+.full-width {
+  width: 100%;
+}
+
 .error-message {
   mat-error {
     font-size: 12px;
@@ -132,6 +142,133 @@ body {
   }
 }
 
+.custom-form-field {
+  &.push-top {
+    .mat-form-field-label {
+      margin-top: 5px;
+    }
+  }
+}
 .custom-form-field .mat-form-field-wrapper{
   margin-bottom: -1.25em;
+}
+
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 100px;
+
+  .calculation-container {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+
+    .calculation-box {
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fa4616;
+        height: 30px;
+        width: 30px;
+        font-size: 20px;
+        background: #ffffff;
+        border: 0.5px solid #f2f2f2;
+        box-sizing: border-box;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.07),
+          4px -4px 13px rgba(0, 0, 0, 0.04), -4px 4px 13px rgba(0, 0, 0, 0.04);
+        border-radius: 4px;
+      }
+    }
+    .quantity {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      color: #4f4f4f;
+      margin: 0px 12px;
+    }
+  }
+}
+
+.product-img {
+  height: 70px;
+  min-width: 70px;
+  margin-right: 10px;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.no-image {
+  background-image: url("./assets/no-image.jpg");
+  height: 70px;
+  min-width: 70px;
+  margin-right: 10px;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.order-btn {
+  height: 40px;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 6px;
+  width: 100%;
+  background: #fa4616;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  
+  &:disabled {
+    opacity: 0.7;
+  }
+}
+
+.custom-text-area {
+  .mat-form-field-underline {
+      display: none;
+  }
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.remove-underline {
+  font-size: 14px;
+  .mat-form-field-underline {
+    display: none!important;
+}
+}
+
+.page-name {
+  position: relative;
+  z-index: 5;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 33px;
+  color: #333333;
+  padding: 25px 15px 25px;
+}
+
+
+
+.checkbox-container {
+  margin-top: 15px;
+  color: #fff;
+  .mat-checkbox-label {
+    margin-left: 5px;
+    white-space: pre-wrap;
+
+  }
+  .mat-checkbox-inner-container {
+    border: 1px solid #FFF!important;
+  }
 }

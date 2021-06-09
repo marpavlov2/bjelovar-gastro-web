@@ -5,7 +5,8 @@
       <div class="header">
         <div>
           <h2 *ngIf="user" class="welcome-user">Bok {{ user.firstName }},</h2>
-          <h2>Otkrij nova iskustva <br>
+          <h2>
+            Otkrij nova iskustva <br />
             <span style="color: #fa4616">okusa</span>
           </h2>
         </div>
@@ -23,8 +24,11 @@
 
     <div class="top-offers-container" *ngIf="topOfferProducts.length">
       <swiper [config]="swiperConfig">
-        <div class="slide swiper-slide"*ngFor="let product of topOfferProducts"
-        (click)="goToRestaurantPage(product.objectId, product.id)">
+        <div
+          class="slide swiper-slide"
+          *ngFor="let product of topOfferProducts"
+          (click)="goToRestaurantPage(product.objectId, product.id)"
+        >
           <div class="tags-container">
             <div class="tag discount-offer" *ngIf="product.discount">
               Akcija
@@ -32,13 +36,16 @@
             <div class="tag top-offer">Top Ponuda</div>
           </div>
           <div class="slide-img-layer"></div>
-          <div class="slide-img" [ngStyle]="{'background-image': 'url(' + product.image + ')'}"></div>
+          <div
+            class="slide-img"
+            [ngStyle]="{ 'background-image': 'url(' + product.image + ')' }"
+          ></div>
           <div class="slide-content">
             <h3 class="elipsis">
-              {{product.name}}
+              {{ product.name }}
             </h3>
             <p class="elipsis">
-              {{product.description}}
+              {{ product.description }}
             </p>
           </div>
         </div>
@@ -46,57 +53,94 @@
     </div>
 
     <p class="section-title">Najčešće naručivano</p>
-    
+
     <div class="top-products-container" *ngIf="mostOrderedProducts.length">
       <swiper [config]="swiperConfig">
-        <div class="slide swiper-slide"*ngFor="let product of mostOrderedProducts"
-        (click)="goToRestaurantPage(product.objectId, product.id)">
+        <div
+          class="slide swiper-slide"
+          *ngFor="let product of mostOrderedProducts"
+          (click)="goToRestaurantPage(product.objectId, product.productId)"
+        >
           <div class="tags-container">
             <div class="tag discount-offer" *ngIf="product.discount">
               Akcija
             </div>
           </div>
-          <div class="slide-img" [ngStyle]="{'background-image': 'url(' + product.productImage + ')'}"></div>
+          <div
+            class="slide-img"
+            [ngStyle]="{
+              'background-image': 'url(' + product.productImage + ')'
+            }"
+          ></div>
           <div class="slide-content">
             <h3 class="elipsis">
-              {{product.productName}}
+              {{ product.productName }}
             </h3>
             <p class="elipsis">
-              {{product.objectName}}
+              {{ product.objectName }}
             </p>
           </div>
         </div>
       </swiper>
     </div>
 
-    <p class="section-title" style="margin-bottom: 0px;">U blizini</p>
+    <p class="section-title" style="margin-bottom: 0px">U blizini</p>
 
-    <div class="restaurant-container" *ngFor="let restaurant of restaurants">
-      <div (click)="goToRestaurantPage(restaurant.id)">
-        <div class="restaurant-image" [ngStyle]="{'background-image': 'url(' + restaurant.image + ')'}">
-          <div class="layer" *ngIf="!restaurant.isWorking">
-            <h3>Zatvoreno</h3>
-          </div>
-        </div>
-        <div class="restaurant-info-container">
-          <div class="restaurant-info">
-            <h4>{{restaurant.name}}</h4>
-            <div class="star-container">
-              <i class="star"></i>
-              <span>5.0</span>
+    <div class="restaurants-container">
+      <div class="restaurants" *ngFor="let restaurant of restaurants">
+        <div (click)="goToRestaurantPage(restaurant.id)">
+          <div
+            class="restaurant-image"
+            [ngStyle]="{ 'background-image': 'url(' + restaurant.image + ')' }"
+          >
+            <div class="layer" *ngIf="!restaurant.isWorking">
+              <h3>Zatvoreno</h3>
             </div>
           </div>
-          <div class="restaurant-time-info">
-            <div *ngIf="restaurant.objectCategories">
-              <span *ngFor="let category of restaurant.objectCategories; let lastItem = last;">{{category.category.name}}<span *ngIf="!lastItem">, </span>  </span>
+          <div class="restaurant-info-container">
+            <div class="restaurant-info">
+              <h4>{{ restaurant.name }}</h4>
+              <div class="star-container">
+                <i class="star"></i>
+                <span>5.0</span>
+              </div>
             </div>
-            <div class="time-container">
-              <span class="material-icons">alarm</span>
-              <span>{{restaurant.approximateDeliveryTime}} min</span>
+            <div class="restaurant-time-info">
+              <div *ngIf="restaurant.objectCategories">
+                <span
+                  *ngFor="
+                    let category of restaurant.objectCategories;
+                    let lastItem = last
+                  "
+                  >{{ category.category.name }}<span *ngIf="!lastItem">, </span>
+                </span>
+              </div>
+              <div class="time-container">
+                <span class="material-icons">alarm</span>
+                <span>{{ restaurant.approximateDeliveryTime }} min</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <footer>
+    <div class="action-button-container">
+      <div class="icons">
+        <div class="icon-container">
+          <div class="material-icons icon big">home_outline</div>
+          <span>Početna</span>
+        </div>
+        <div class="icon-container">
+          <div class="material-icons icon big">fastfood_outline</div>
+          <span>Narudžbe</span>
+        </div>
+        <div class="icon-container">
+          <div class="material-icons icon big">person</div>
+          <span>Profil</span>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>

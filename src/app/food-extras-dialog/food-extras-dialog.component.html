@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Dodaci</h1>
+<div mat-dialog-content>
+    <span class="example-list-section">
+        <ul>
+          <li *ngFor="let subtask of data.value">
+            <mat-checkbox [(ngModel)]="subtask.checked">
+              {{subtask.label}}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </span>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button (click)="onNoClick()">Zatvori</button>
+  <button mat-button [mat-dialog-close]="filter(data.value)" cdkFocusInitial>Spremi</button>
+</div>

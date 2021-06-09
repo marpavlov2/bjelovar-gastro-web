@@ -1,0 +1,243 @@
+<div class="confirm-order-container">
+    <div class="ion-header-container ion-no-border">
+        <div>
+          <div class="visuals"></div>
+          <div class="page-name-container">
+            <!-- <ion-buttons slot="start" *ngIf="md.producer">
+                <ion-back-button defaultHref="/producer/{{md.producer.id}}"></ion-back-button>
+              </ion-buttons> -->
+            <h4 class="page-name">Narudžba</h4>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ion-padding content">
+        <div class="div-container">
+          <mat-form-field
+            class="full-width custom-form-field address remove-underline push-top"
+            *ngIf="user && user.address"
+          >
+            <mat-label position="floating"
+              >Želiš izmjenit adresu za dostavu?</mat-label
+            >
+            <input
+              matInput
+              name="deliveryAddress"
+              type="text"
+              [(ngModel)]="deliveryAddress"
+            />
+            <span
+              class="ion-align-self-center"
+              name="create-outline"
+              slot="end"
+            ></span>
+          </mat-form-field>
+          <div style="position: relative" *ngIf="user && !user.address">
+            <h5 style="margin-bottom: 15px !important" class="order-title">
+              Podaci za dostavu
+            </h5>
+            <mat-form-field class="ion-no-padding address remove-underline">
+              <mat-label position="floating">Ulica</mat-label>
+              <input
+                matInput
+                style="text-transform: capitalize"
+                [(ngModel)]="autocomplete.input"
+                (ionInput)="UpdateSearchResults()"
+                name="deliveryAddress"
+                type="text"
+              />
+              <span
+                class="ion-align-self-center"
+                name="create-outline"
+                slot="end"
+              ></span>
+            </mat-form-field>
+            <mat-form-field class="ion-no-padding ion-margin-top address remove-underline">
+              <mat-label position="floating">Kućni broj</mat-label>
+              <input
+                matInput
+                placeholder="Kućni broj"
+                name="number"
+                [(ngModel)]="deliveryNumber"
+                type="text"
+                (ionInput)="deliveryAddressNumber($event.target.value)"
+                required
+              />
+              <span
+                class="ion-align-self-center"
+                name="create-outline"
+                slot="end"
+              ></span>
+            </mat-form-field>
+            <mat-form-field class="ion-no-padding ion-margin-top address remove-underline">
+              <mat-label position="floating">Broj telefona</mat-label>
+              <input
+                matInput
+                placeholder="Broj telefona"
+                name="number"
+                [(ngModel)]="telephoneNumber"
+                type="number"
+                required
+              />
+              <span
+                class="ion-align-self-center"
+                name="create-outline"
+                slot="end"
+              ></span>
+            </mat-form-field>
+            <div
+              [hidden]="autocompleteItems.length == 0"
+              style="
+                position: absolute;
+                top: 85px;
+                left: 0;
+                right: 0;
+                z-index: 222;
+                border-bottom: 1px solid #f2f2f2;
+                border-left: 1px solid #f2f2f2;
+                border-right: 1px solid #f2f2f2;
+              "
+            >
+              <div
+                class="list"
+                *ngFor="let item of autocompleteItems"
+                tappable
+                (click)="SelectSearchResult(item)"
+              >
+                {{ item.structured_formatting.main_text }}
+              </div>
+            </div>
+          </div>
+      
+          <div class="ion-margin-top">
+            <div *ngIf="order && order.products">
+              <h5 class="ion-margin-bottom order-title">Naručeni proizvodi</h5>
+              <div>
+                <div
+                  *ngFor="let product of order.products"
+                  class="ion-no-padding product-container"
+                >
+                  <div class="product-information-container">
+                    <div class="product-order-quantity-container">
+                      <span class="product-order-quantity">{{
+                        product.orderQuantity | number
+                      }}</span>
+                    </div>
+                    <div class="product-information">
+                      <p class="product-title">{{ product.name }}</p>
+                      <!-- ({{product.quantity | number }} {{product.unit}}) -->
+                      <p class="product-description">{{ product.description }}</p>
+                      <p
+                        class="product-note"
+                        *ngIf="product.foodExtras && product.foodExtras.length"
+                      >
+                        <span>Dodaci:</span>
+                        <span
+                          style="color: #828282"
+                          *ngFor="let foodExtra of product.foodExtras"
+                        >
+                          {{
+                            foodExtra.name +
+                              " (" +
+                              (foodExtra.displayPrice | number: "1.2") +
+                              " kn),"
+                          }}</span
+                        >
+                      </p>
+                      <p class="product-note" *ngIf="product.productNote">
+                        <span>Napomena:</span> {{ product.productNote }}
+                      </p>
+                    </div>
+                    <p class="product-price">
+                      {{
+                        (product.discount
+                          ? product.discountDisplayPrice
+                          : product.displayPrice
+                        ) | number: "1.2"
+                      }}
+                      kn
+                    </p>
+                  </div>
+                </div>
+              </div>
+      
+              <div
+                class="total-delivery-container"
+                *ngIf="order.deliveryPrice && pickupType === 'RESTAURANT_DELIVERY'"
+              >
+                <p class="ion-no-margin total-delivery-title">Dostava:</p>
+                <p class="ion-no-margin total-delivery">
+                  {{ order.deliveryPrice | number: "1.2" }} kn
+                </p>
+              </div>
+      
+              <div class="total-price-container">
+                <p class="ion-no-margin total-price-title">Ukupno:</p>
+                <p class="ion-no-margin total-price">
+                  {{ totalPrice | number: "1.2" }} kn
+                </p>
+              </div>
+            </div>
+            <mat-label class="payment">
+              Način plaćanja: <span>Gotovina</span>
+            </mat-label>
+      
+            <!-- <mat-form-field class="ion-no-padding ion-margin-top address remove-underline">
+              <mat-label position="floating">Promo kod</mat-label>
+              <input matInput placeholder="XXXX" name="coupon" type="text" />
+              <span class="ion-align-self-center" name="add" slot="end"></span>
+            </mat-form-field> -->
+      
+            <mat-form-field class="pickup-type full-width ">
+              <mat-label>Način preuzimanja</mat-label>
+              <mat-select
+                value="RESTAURANT_DELIVERY"
+                okText="Spremi"
+                cancelText="Zatvori"
+                [(ngModel)]="pickupType"
+              >
+                <mat-option value="RESTAURANT_DELIVERY">Dostava</mat-option>
+                <mat-option value="USER_PICKUP">Pokupi u restoranu</mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+            <mat-form-field  class="full-width ion-margin-top delivery-note custom-text-area custom-form-field ">
+              <mat-label position="stacked">{{
+                pickupType == "RESTAURANT_DELIVERY"
+                  ? "Napomena za dostavu"
+                  : "Napomena za restoran"
+              }}</mat-label>
+              <textarea
+              matInput
+                rows="3"
+                [placeholder]="
+                  pickupType === 'RESTAURANT_DELIVERY'
+                    ? 'npr. pozvonite na prezime Maretić, 3. kat'
+                    : 'Napomena za restoran'
+                "
+                [(ngModel)]="note"
+              >
+              </textarea>
+            </mat-form-field >
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="ion-padding-horizontal action-button-container">
+          <button
+            expand="block"
+            class="order-btn"
+            (click)="presentConfirmOrder()"
+            [disabled]="
+              totalPrice === 0 ||
+              !deliveryAddress ||
+              !deliveryNumber ||
+              !telephoneNumber
+            "
+            >Potvrdi narudžbu
+        </button>
+        </div>
+      </footer>
+      
+</div>

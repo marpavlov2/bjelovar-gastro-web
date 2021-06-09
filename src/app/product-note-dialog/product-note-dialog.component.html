@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Napomena</h1>
+<div mat-dialog-content>
+  <mat-form-field class="full-width custom-text-area">
+    <mat-label>Npr. ljuti umak</mat-label>
+    <textarea matInput [(ngModel)]="data.animal"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button (click)="onNoClick()">Zatvori</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Spremi</button>
+</div>

@@ -1,0 +1,269 @@
+<div class="container">
+  <div class="producer-image-container">
+    <div
+      *ngIf="md.producer && md.producer.image"
+      class="reastaurant-img"
+      [ngStyle]="{ 'background-image': 'url(' + md.producer.image + ')' }"
+    ></div>
+    <div *ngIf="md.producer && !md.producer.image" class="no-icon"></div>
+    <div class="layer" *ngIf="!isWorking">
+      <h3>Zatvoreno</h3>
+    </div>
+    <div class="restaurant-time-info">
+      <div class="time-container">
+        <span class="material-icons">alarm</span>
+        <span *ngIf="md.producer"
+          >{{ md.producer.approximateDeliveryTime }} min</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="producer-container ion-padding" *ngIf="md.producer">
+    <div class="producer-info-container">
+      <div class="producer-info">
+        <h4>{{ md.producer.name }}</h4>
+        <div class="star-container">
+          <i class="star"></i>
+          <span>5.0</span>
+          <!-- <span>(200)</span> -->
+        </div>
+      </div>
+      <p class="producer-city">
+        {{ md.producer.city }}, {{ md.producer.address }}
+      </p>
+      <p
+        class="producer-city"
+        *ngIf="md.producer.notificationMessage"
+        style="color: #fa4616"
+      >
+        {{ md.producer.notificationMessage }}
+      </p>
+    </div>
+  </div>
+
+  <mat-tab-group (selectedTabChange)="segmentChanged($event)" value="products">
+    <mat-tab label="Ponuda" value="products">
+      <div class="products-container">
+        <mat-form-field class="full-width custom-form-field">
+          <input
+            matInput
+            (input)="search()"
+            class="ion-searchbar drop-shadow"
+            placeholder="Pretraži proizvode"
+            [(ngModel)]="searchTerm"
+          />
+        </mat-form-field>
+
+        <mat-list *ngIf="md.producerProducts">
+          <div *ngFor="let category of filteredProducerProducts; let i = index">
+            <h3 *ngIf="category.products" class="category-name">
+              {{ category.name }}
+            </h3>
+            <ion-row>
+              <ion-col
+                size="12"
+                *ngFor="let product of category.products; let j = index"
+              >
+                <div class="product-container" [id]="product.id">
+                  <div
+                    class="product-img"
+                    *ngIf="product.image"
+                    (click)="viewImage(product.image, product.name)"
+                    [ngStyle]="{
+                      'background-image': 'url(' + product.image + ')'
+                    }"
+                  ></div>
+                  <div *ngIf="!product.image" class="no-image"></div>
+
+                  <div class="product-information-container">
+                    <div class="product-information">
+                      <h5>{{ product.name }}</h5>
+                      <p class="product-description">
+                        {{ product.description }}
+                      </p>
+                      <div
+                        class="
+                          ion-justify-content-between ion-align-items-center
+                        "
+                        *ngIf="product.orderQuantity"
+                      >
+                        <div
+                          *ngIf="product.extraFood"
+                          style="margin-top: 8px"
+                          class="food-extras-btn"
+                          (click)="openFoodExtras(product, product.id)"
+                        >
+                          <ion-icon slot="start" name="add-outline"></ion-icon>
+                          Dodaci
+                        </div>
+                      </div>
+                      <div
+                        class="
+                          ion-justify-content-between ion-align-items-center
+                        "
+                        *ngIf="product.orderQuantity"
+                      >
+                        <div
+                          class="food-extras-btn"
+                          (click)="openProductNote(product.id)"
+                        >
+                          <ion-icon slot="start" name="add-outline"></ion-icon>
+                          Napomena
+                        </div>
+                      </div>
+                      <div
+                        class="not-available"
+                        item-end
+                        *ngIf="!product.available"
+                      >
+                        <p>(nedostupno)</p>
+                      </div>
+
+                      <!-- <p 
+                              (click)="openFoodExtras(i,j)">Dodaci
+                          </p> -->
+                    </div>
+
+                    <div
+                      class="action-container"
+                      [style.justify-content]="
+                        product.available ? 'space-between' : 'flex-end'
+                      "
+                    >
+                      <div
+                        class="calculation-container"
+                        item-end
+                        *ngIf="product.available"
+                      >
+                        <div
+                          class="calculation-box minus"
+                          *ngIf="product.orderQuantity"
+                        >
+                          <button
+                            [disabled]="!product.available"
+                            (click)="decreaseQuantity(product.id)"
+                          >
+                            <span class="material-icons">remove</span>
+                          </button>
+                        </div>
+                        <div
+                          class="calculation-box quantity"
+                          *ngIf="product.orderQuantity"
+                        >
+                          {{ product.orderQuantity }}
+                        </div>
+                        <div class="calculation-box plus">
+                          <button
+                            [disabled]="!product.available"
+                            (click)="increaseQuantity(product.id)"
+                          >
+                            <span class="material-icons">add</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="
+                          ion-justify-content-between ion-align-items-center
+                        "
+                      >
+                        <p class="product-price" *ngIf="!product.discount">
+                          {{ product.displayPrice | number: "1.2" }} kn
+                        </p>
+                        <div
+                          class="discount-price-cointainer"
+                          *ngIf="product.discount"
+                        >
+                          <p class="product-price discount-price">
+                            {{
+                              product.discountDisplayPrice | number: "1.2"
+                            }}
+                            kn
+                          </p>
+                          <p class="product-price old-price">
+                            {{ product.displayPrice | number: "1.2" }} kn
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+        </mat-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="O nama" value="about">
+      <div
+        class="restaurant-description-container"
+        *ngIf="md.producer && md.producer.delivery && md.producer.deliveryDays"
+      >
+        <div class="restaurant-description">
+          {{ md.producer.description }}
+        </div>
+        <div class="delivery-time" *ngIf="md.producer.deliveryDays">
+          <p style="margin-bottom: 5px; color: #fa4616">
+            <strong>Radno vrijeme dostave:</strong>
+          </p>
+          <p>
+            <strong>Ponedjeljak:</strong>
+            {{
+              md.producer.deliveryDays["monday"]
+                ? md.producer.deliveryDays["monday"]
+                : "Zatvoreno"
+            }}
+          </p>
+          <p>
+            <strong>Utorak:</strong> {{ md.producer.deliveryDays["tuesday"] }}
+          </p>
+          <p>
+            <strong>Srijeda:</strong>
+            {{ md.producer.deliveryDays["wednesday"] }}
+          </p>
+          <p>
+            <strong>Četvrtak:</strong>
+            {{ md.producer.deliveryDays["thursday"] }}
+          </p>
+          <p>
+            <strong>Petak:</strong> {{ md.producer.deliveryDays["friday"] }}
+          </p>
+          <p>
+            <strong>Subota:</strong>
+            {{
+              md.producer.deliveryDays["saturday"]
+                ? md.producer.deliveryDays["saturday"]
+                : "Zatvoreno"
+            }}
+          </p>
+          <p>
+            <strong>Nedjelja:</strong>
+            {{
+              md.producer.deliveryDays["sunday"]
+                ? md.producer.deliveryDays["sunday"]
+                : "Zatvoreno"
+            }}
+          </p>
+        </div>
+        <!-- <ion-label style="margin-bottom: 10px; width: 100%;">
+              <span style="margin: 15px 0px 25px; display: block; font-weight: 700;  color: #000; font-size: 16px;">
+                Radno vrijeme dostave:
+              </span>
+            </ion-label> -->
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <footer *ngIf="hasOrder; &quot;action-button-container&quot;">
+    <div class="ion-padding-horizontal action-button-container">
+      <button
+        class="order-btn"
+        (click)="gotoConfirmOrder()"
+        expand="block"
+        [disabled]="!isWorking"
+      >
+        Naruči za {{ totalPrice | number: "1.2" }}kn
+      </button>
+    </div>
+  </footer>
+</div>

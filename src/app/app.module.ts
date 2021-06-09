@@ -20,6 +20,11 @@ import { AngularMaterialModule } from './angular-material.module';
 
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RestaurantPageComponent } from './restaurant-page/restaurant-page.component';
+import { FoodExtrasDialogComponent } from './food-extras-dialog/food-extras-dialog.component';
+import { ProductNoteDialogComponent } from './product-note-dialog/product-note-dialog.component';
+import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
  
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -30,7 +35,12 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   declarations: [
     AppComponent,
     HomePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    RestaurantPageComponent,
+    ProductNoteDialogComponent,
+    FoodExtrasDialogComponent,
+    ConfirmOrderComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +69,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     provide: SWIPER_CONFIG,
     useValue: DEFAULT_SWIPER_CONFIG
   }],
+  entryComponents: [
+    ProductNoteDialogComponent,
+    FoodExtrasDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

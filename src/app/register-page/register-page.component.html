@@ -1,0 +1,188 @@
+<div class="login-container">
+  <div class="image-container">
+    <img class="b-gastro-logo" src="../../assets/b-gastro-logo.svg" />
+  </div>
+  <form [formGroup]="registerForm" autocomplete="off">
+    <mat-form-field class="full-width custom-form-field">
+      <mat-label>Ime</mat-label>
+      <input
+        autocomplete="off"
+        matInput
+        placeholder="Ime"
+        name="firstName"
+        formControlName="firstName"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <div
+      class="error-message"
+      *ngIf="!firstName.valid && (firstName.dirty || firstName.touched)"
+    >
+      <mat-error *ngIf="firstName.errors.required"
+        >Ime je obavezno polje.</mat-error
+      >
+    </div>
+
+    <mat-form-field class="full-width custom-form-field">
+        <mat-label>Prezime</mat-label>
+        <input
+          autocomplete="off"
+          matInput
+          placeholder="Prezime"
+          name="lastName"
+          formControlName="lastName"
+          autocomplete="off"
+        />
+      </mat-form-field>
+  
+      <div
+        class="error-message"
+        *ngIf="!lastName.valid && (lastName.dirty || lastName.touched)"
+      >
+        <mat-error *ngIf="lastName.errors.required"
+          >Prezime je obavezno polje.</mat-error
+        >
+      </div>
+
+      <mat-form-field class="full-width custom-form-field">
+        <mat-label>Grad</mat-label>
+        <input
+          autocomplete="off"
+          matInput
+          placeholder="Grad"
+          name="city"
+          formControlName="city"
+          autocomplete="off"
+        />
+      </mat-form-field>
+  
+      <div
+        class="error-message"
+        *ngIf="!city.valid && (city.dirty || city.touched)"
+      >
+        <mat-error *ngIf="city.errors.required"
+          >Grad je obavezno polje.</mat-error
+        >
+        <mat-error *ngIf="city.errors.minlength"
+        >Grad mora sadržavati minimalno 4 znaka.</mat-error
+      >
+      </div>
+
+      <mat-form-field class="full-width custom-form-field">
+        <mat-label>Adresa</mat-label>
+        <input
+          autocomplete="off"
+          matInput
+          placeholder="Adresa"
+          name="address"
+          formControlName="address"
+          autocomplete="off"
+        />
+      </mat-form-field>
+  
+      <div
+        class="error-message"
+        *ngIf="!address.valid && (address.dirty || address.touched)"
+      >
+        <mat-error *ngIf="address.errors.required"
+          >Adresa je obavezno polje.</mat-error
+        >
+        <mat-error *ngIf="address.errors.minlength"
+        > Adresa mora sadržavati minimalno 4 znaka.</mat-error
+      >
+      </div>
+
+      <mat-form-field class="full-width custom-form-field">
+        <mat-label>Broj mobitela</mat-label>
+        <input
+          autocomplete="off"
+          matInput
+          placeholder="Broj mobitela"
+          name="phone"
+          formControlName="phone"
+          autocomplete="off"
+        />
+      </mat-form-field>
+  
+      <div
+        class="error-message"
+        *ngIf="!phone.valid && (phone.dirty || phone.touched)"
+      >
+        <mat-error *ngIf="phone.errors.required"
+          >Broj mobitela je obavezno polje. Unesti u formatu 0996848883</mat-error
+        >
+        <mat-error *ngIf="phone.errors.minlength"
+        >Broj mobitela mora sadržavati minimalno 6 znakova.</mat-error
+      >
+      </div>
+
+    <mat-form-field class="full-width custom-form-field">
+      <mat-label>E-pošta</mat-label>
+      <input
+        autocomplete="off"
+        matInput
+        placeholder="Email"
+        name="email"
+        formControlName="email"
+        autocomplete="off"
+      />
+    </mat-form-field>
+
+    <div
+      class="error-message"
+      *ngIf="!email.valid && (email.dirty || email.touched)"
+    >
+      <mat-error *ngIf="email.errors.required"
+        >Email je obavezno polje.</mat-error
+      >
+      <mat-error *ngIf="email.errors.email"
+        >Unesite email u ispravnom formatu.</mat-error
+      >
+    </div>
+
+    <mat-form-field class="full-width custom-form-field">
+      <mat-label>Lozinka</mat-label>
+      <!-- type="password" -->
+      <input
+        matInput
+        placeholder="Password"
+        name="password"
+        formControlName="password"
+        autocomplete="new-password"
+      />
+    </mat-form-field>
+
+    <div
+      class="error-message"
+      *ngIf="!password.valid && (password.dirty || password.touched)"
+    >
+      <mat-error *ngIf="password.errors.required"
+        >Lozinka je obavezno polje.</mat-error
+      >
+      <mat-error *ngIf="password.errors.minlength">
+        Lozinka mora sadržavati minimalno 6 znakova.
+      </mat-error>
+    </div>
+
+    <div class="checkbox-container ion-no-padding ion-no-border">
+        <mat-checkbox  formControlName="checkedTerms">Prihvaćam uvjete
+            korištenja i pravila privatnosti
+        </mat-checkbox>
+      </div>
+      <div class="checkbox-container ion-no-padding ion-no-border">
+        <mat-checkbox  formControlName="ageGate">
+            Potvrđujem da sam stariji od 18 godina
+        </mat-checkbox>
+      </div>
+
+    <button
+      class="login-btn"
+      expand="block"
+      (click)="register()"
+      [disabled]="!registerForm.valid"
+    >
+      Registracija
+    </button>
+  </form>
+</div>

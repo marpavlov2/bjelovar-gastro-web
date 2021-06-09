@@ -57,6 +57,7 @@ export class AuthService {
     }
     catch (e) {
       await this.spinner.hideSpinner();
+      console.log(e)
       this.toast.show(e.error.message);
     }
   }
